@@ -15,11 +15,11 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Build Frontend') {
-        //     steps { 
-        //         sh 'npm install'
-        //     }
-        // }
+        stage('Build Frontend') {
+            steps { 
+                sh 'npm install'
+            }
+        }
         stage('docker-compose') {
            steps {
             //   sh "docker-compose build"

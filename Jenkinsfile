@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    tools {
-      terraform 'terraform'
-    }
+    // tools {
+    //   terraform 'terraform'
+    // }
     // tools {
     //   maven 'maven3'
     // }
@@ -15,14 +15,14 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Build Frontend') {
-            steps { 
-                sh 'npm install'
-            }
-        }
+        // stage('Build Frontend') {
+        //     steps { 
+        //         sh 'npm install'
+        //     }
+        // }
         stage('docker-compose') {
            steps {
-            //   sh "docker-compose build"
+              sh "docker-compose build"
               sh "docker-compose up -d"
            }
         }

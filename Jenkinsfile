@@ -9,8 +9,10 @@ pipeline {
 
     stages {
         stage ("Build backend") {
-            steps {                
-                sh 'mvn clean install'                
+            steps {
+                withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'maven3', mavenSettingsConfig: 'null') {
+                    // some block
+                }
             }
         }
         stage('Build Frontend') {

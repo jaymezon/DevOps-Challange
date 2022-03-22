@@ -9,10 +9,8 @@ pipeline {
 
     stages {
         stage ("Build backend") {
-            steps {
-                withMaven{
-                    sh 'mvn clean install'
-                }
+            steps {                
+                sh 'mvn clean install'                
             }
         }
         stage('Build Frontend') {

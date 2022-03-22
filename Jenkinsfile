@@ -15,6 +15,12 @@ pipeline {
                 }
             }
         }
+        stage('docker-compose') {
+           steps {
+            //   sh "docker-compose build"
+              sh "docker-compose up -d"
+           }
+        }
     //     stage ("terraform init") {
     //         steps {
     //             sh 'terraform init'
@@ -40,11 +46,11 @@ pipeline {
     //             sh 'terraform apply --auto-approve'
     //         }
     //     }
-    //     stage('Build Frontend') {
-    //         steps { 
-    //             sh 'npm install'
-    //         }
-    //     }
+        stage('Build Frontend') {
+            steps { 
+                sh 'npm install'
+            }
+        }
     //     stage ('Build jar - Backend') {
     //         steps {
     //             sh 'mvn -f validator-backend/pom.xml clean install'         

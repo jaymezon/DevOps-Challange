@@ -3,23 +3,23 @@ pipeline {
     // tools {
     //   terraform 'terraform'
     // }
-    tools {
-      maven 'maven3'
-    }
+    // tools {
+    //   maven 'maven3'
+    // }
 
     stages {
-        stage ("Build backend") {
-            steps {
-                withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'maven3', mavenSettingsConfig: 'null') {
-                    // some block
-                }
-            }
-        }
-        // stage('Build Frontend') {
-        //     steps { 
-        //         sh 'npm install'
+        // stage ("Build backend") {
+        //     steps {
+        //         withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'maven3', mavenSettingsConfig: 'null') {
+        //             // some block
+        //         }
         //     }
         // }
+        stage('Build Frontend') {
+            steps { 
+                sh 'npm install'
+            }
+        }
         // stage('docker-compose') {
         //    steps {
         //     //   sh "docker-compose build"

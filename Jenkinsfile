@@ -3,9 +3,9 @@ pipeline {
     tools {
       terraform 'terraform'
     }
-    tools {
-      maven 'maven3'
-    }
+    // tools {
+    //   maven 'maven3'
+    // }
 
     stages {
         stage ("Build backend") {

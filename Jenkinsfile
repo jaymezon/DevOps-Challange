@@ -8,24 +8,24 @@ pipeline {
     // }
 
     stages {
-        // stage ("Build backend") {
-        //     steps {
-        //         withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'maven3', mavenSettingsConfig: 'null') {
-        //             // some block
-        //         }
-        //     }
-        // }
+        stage ("Build backend") {
+            steps {
+                withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'maven3', mavenSettingsConfig: 'null') {
+                    // some block
+                }
+            }
+        }
         // stage('Build Frontend') {
         //     steps { 
         //         sh 'npm install'
         //     }
         // }
-        stage('docker-compose') {
-           steps {
-              sh "docker-compose build"
-              sh "docker-compose up -d"
-           }
-        }
+        // stage('docker-compose') {
+        //    steps {
+        //     //   sh "docker-compose build"
+        //       sh "docker-compose up -d"
+        //    }
+        // }
     //     stage ("terraform init") {
     //         steps {
     //             sh 'terraform init'

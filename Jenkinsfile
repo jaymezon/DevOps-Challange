@@ -211,12 +211,12 @@ pipeline {
                 sh 'mvn -f validator-backend/pom.xml clean install'         
             }
         }
-        stage ('Build Frontend') {
-            steps {
-                sh 'npm install' 
-                sh 'npm run build'      
-            }
-        }      
+        // stage ('Build Frontend') {
+        //     steps {
+        //         sh 'npm install' 
+        //         sh 'npm run build'      
+        //     }
+        // }      
         
         stage ('Docker Build and push to Dockerhub') {
             steps {

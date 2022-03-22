@@ -221,7 +221,7 @@ pipeline {
         stage ('Docker Build and push to Dockerhub') {
             steps {
             // Build and push image with Jenkins' docker-plugin
-                withDockerRegistry([credentialsId: "dockerhub", url: "https://index.docker.io/v1/"]) {
+                withDockerRegistry([credentialsId: "dockerhub_id", url: "https://index.docker.io/v1/"]) {
                 image = docker.build("jaymezon/jumia-phone-number-validator", "jumia_phone_validator")
                 // image = docker.build("jaymezon/validator-backend-image", "jumia-phone-number-validator/validator-backend")
                 // image = docker.build("jaymezon/validator-frontend-image", "jumia-phone-number-validator/validator-frontend")

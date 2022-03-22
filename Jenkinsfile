@@ -6,8 +6,70 @@ pipeline {
     // tools {
     //   maven 'maven3'
     // }
-
+    environment{
+        dockerImage = ''
+        registry = 'jaymezon/validator-backend-image'
+        registry = 'jaymezon/validator-frontend-image'
+        registryCredential = 'dockerhub_id'
+    }
     stages {
+        stage ('Build jar - Backend') {
+            steps {
+                sh 'mvn -f validator-backend/pom.xml clean install'         
+            }
+        }
+        stage ('Build Frontend') {
+            steps {
+                sh 'npm install' 
+                sh 'npm run build'      
+            }
+        }
+        stage('Build Docker image') {
+           steps {
+               script{
+                  dockerImage = docker.build registry 
+               }           
+           }
+        }
+          // Uploading Docker images into Docker Hub
+        stage('Upload Image') {
+            steps{    
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                    }
+                }
+            }
+        }
+        // Stopping Docker containers for cleaner Docker run
+        stage('docker stop container') {
+            steps {
+                sh 'docker ps -f name=vidaaltor-backend-image -q | xargs --no-run-if-empty docker container stop'
+                sh 'docker container ls -a -fname=validator-backend-image -q | xargs -r docker container rm'
+                 sh 'docker ps -f name=validator-frontend-image -q | xargs --no-run-if-empty docker container stop'
+                sh 'docker container ls -a -fname=validator-frontend-image -q | xargs -r docker container rm'
+            }
+        }
+        // Stopping Docker containers for cleaner Docker run
+        stage('docker stop container') {
+            steps {
+                script{
+                    dockerImage.run("-p 8080:8080 --rm vidaaltor-backend-image")
+                    dockerImage.run("-p 8081:8081 --rm validator-frontend-image")
+                }
+                // sh 'docker ps -f name=vidaaltor-backend-image -q | xargs --no-run-if-empty docker container stop'
+                // sh 'docker container ls -a -fname=vidaaltor-backend-image -q | xargs -r docker container rm'
+                // sh 'docker ps -f name=validator-frontend-image -q | xargs --no-run-if-empty docker container stop'
+                // sh 'docker container ls -a -fname=validator-frontend-image -q | xargs -r docker container rm'
+            }
+        }
+        // stage('docker-compose') {
+        //    steps {
+        //     //   sh "docker-compose build"
+        //       sh "docker-compose up -d"
+        //    }
+        // }
+
         // stage ("Build backend") {
         //     steps {
         //         withMaven(globalMavenSettingsConfig: 'null', jdk: 'null', maven: 'maven3', mavenSettingsConfig: 'null') {
@@ -20,12 +82,7 @@ pipeline {
         //         sh 'npm install'
         //     }
         // }
-        // stage('docker-compose') {
-        //    steps {
-        //     //   sh "docker-compose build"
-        //       sh "docker-compose up -d"
-        //    }
-        // }
+        
     //     stage ("terraform init") {
     //         steps {
     //             sh 'terraform init'
@@ -52,11 +109,7 @@ pipeline {
     //         }
     //     }
        
-        stage ('Build jar - Backend') {
-            steps {
-                sh 'mvn -f validator-backend/pom.xml clean install'         
-            }
-        }
+        
     //     // Building Docker images
     //     stage('Building image') {
     //         steps{

@@ -8,11 +8,16 @@ pipeline {
     }
 
     stages {
-        stage ("Build") {
+        stage ("Build backend") {
             steps {
                 withMaven{
                     sh 'mvn clean install'
                 }
+            }
+        }
+        stage('Build Frontend') {
+            steps { 
+                sh 'npm install'
             }
         }
         stage('docker-compose') {
@@ -46,11 +51,7 @@ pipeline {
     //             sh 'terraform apply --auto-approve'
     //         }
     //     }
-        stage('Build Frontend') {
-            steps { 
-                sh 'npm install'
-            }
-        }
+       
     //     stage ('Build jar - Backend') {
     //         steps {
     //             sh 'mvn -f validator-backend/pom.xml clean install'         

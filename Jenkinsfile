@@ -15,11 +15,11 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Build Frontend') {
-            steps { 
-                sh 'npm install'
-            }
-        }
+        // stage('Build Frontend') {
+        //     steps { 
+        //         sh 'npm install'
+        //     }
+        // }
         // stage('docker-compose') {
         //    steps {
         //     //   sh "docker-compose build"
@@ -52,11 +52,11 @@ pipeline {
     //         }
     //     }
        
-    //     stage ('Build jar - Backend') {
-    //         steps {
-    //             sh 'mvn -f validator-backend/pom.xml clean install'         
-    //         }
-    //     }
+        stage ('Build jar - Backend') {
+            steps {
+                sh 'mvn -f validator-backend/pom.xml clean install'         
+            }
+        }
     //     // Building Docker images
     //     stage('Building image') {
     //         steps{
